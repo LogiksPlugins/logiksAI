@@ -1,7 +1,7 @@
 <?php
 if (!defined('ROOT')) exit('No direct script access allowed');
 
-if (!function_exists("processLogiksAIAPI")) {
+if (!function_exists("sendChatMessage")) {
     
     include_once "core.php";
     
@@ -23,7 +23,7 @@ if (!function_exists("processLogiksAIAPI")) {
 
         $response = callLogiksAIAPI("chat", array_merge([
             "msg"=> $message,
-        	], $params), $appID, $sessID);
+        	], $params), $sessID, $appID);
         
         return $response;
     }
