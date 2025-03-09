@@ -1,0 +1,6 @@
+{
+    "chat": {
+        "method": "POST",
+        "url": "msg"
+    }
+}
