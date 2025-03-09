@@ -16,9 +16,11 @@ if (!function_exists("loadLogiksAI")) {
         }
     }
     
-    function callLogiksAIAPI($endPoint, $data = [], $appID = false, $sessID = false) {
+    function callLogiksAIAPI($endPoint, $data = [], $sessID = false, $appID = false) {
         if(!$sessID) $sessID = uniqid();
         if(!$appID) $appID = "app01";
+
+        if(!defined("LOGIKSAI_DEBUG")) LOGIKSAI_DEBUG = false;
         
         if(!$_SESSION['LOGIKSAI_APILIST'][$endPoint]) {
             $_ENV['CURL_ERROR'] = "Incorrect Endpoint, Not Defined";
