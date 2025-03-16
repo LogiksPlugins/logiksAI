@@ -16,9 +16,9 @@ if(!defined('ROOT')) exit('No direct script access allowed');
 .chatApp {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    background-color: #DFCFBE;
     max-width: 1600px;
-    height: 97vh;
+    height: 95vh;
 /*    margin: 0 auto;*/
     overflow: hidden;
 }
@@ -193,6 +193,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     margin-top: auto;
     margin-bottom: -20px;
     position: relative;
+    margin-top: 0px;
 }
 
 .chat-msg-date {
@@ -265,7 +266,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     display: flex;
     border-top: 1px solid #eef2f4;
     width: 100%;
-    padding: 10px 20px;
+    padding: 10px 0px 10px 10px;
     align-items: center;
     background-color: #fff;
     position: sticky;
@@ -301,6 +302,10 @@ if(!defined('ROOT')) exit('No direct script access allowed');
 
 .chat-area-footer input::placeholder {
     color: #a2a2a2;
+}
+
+.chat-area-footer input:focus{
+    outline: none;
 }
 
 .logo {
@@ -524,13 +529,6 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     opacity: 1;
 }
 
-.chat-area-footer {
-    padding: 10px 15px;
-}
-.chat-area-footer input:focus{
-    outline: none;
-}
-
 .mainWrapper{
    float: left;
     width: calc(100% - 500px);
@@ -587,7 +585,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
 </style>
     
 <div class="chatApp">
-    <div class="chat-area">
+    <div id="chatAreaContainer" class="chat-area">
         <div class="chat-area-header">
             <div class="msg ">
                 <div class="msg-profile group">
@@ -602,10 +600,10 @@ if(!defined('ROOT')) exit('No direct script access allowed');
                 </div>
             </div>
             <div class="chat-area-group">
-                <i class="fa fa-ellipsis-v"></i>
+                <i class="fa fa-ellipsis-h"></i>
             </div>
         </div>
-        <div class="chat-area-main">
+        <div id="chatAreaMain" class="chat-area-main">
             <div class="chat-msg">
                 <div class="chat-msg-profile">
                     <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png" alt="" />
@@ -715,7 +713,7 @@ const EVENT_LISTENERS = {
 };
 const LOGIKSAI_DEBUG = <?=defined("LOGIKSAI_DEBUG")?LOGIKSAI_DEBUG:"false"?>;
 $(function() {
-    
+    //$("#chatAreaContainer").scrollTop($("#chatAreaMain").height());
 });
 function initiateLogiksAIChat(params) {
 
