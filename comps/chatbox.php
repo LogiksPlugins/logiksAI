@@ -1,6 +1,10 @@
 <?php
 if(!defined('ROOT')) exit('No direct script access allowed');
 
+if(!isset($_ENV["LOGIKSAI_TITLE"])) {
+    echo "Please call <u>configureLogiksAI</u> before using this component";
+    return;
+}
 ?>
 <style>
 .aiChat {
@@ -600,9 +604,11 @@ if(!defined('ROOT')) exit('No direct script access allowed');
         transform: translateX(-50%);
     }
 }
+
+<?=$_ENV["LOGIKSAI_STYLE"]?>
 </style>
     
-<div class="chatApp">
+<div class="chatApp" chatid='<?=$_ENV["LOGIKSAI_UUID"]?>'>
     <div id="chatAreaContainer" class="chat-area">
         <div class="chat-area-header">
             <div class="msg ">
@@ -614,7 +620,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
                     </svg>
                 </div>
                 <div class="msg-detail">
-                    <div class="msg-username">LogiksAI</div>
+                    <div class="msg-username"><?=$_ENV["LOGIKSAI_TITLE"]?></div>
                 </div>
             </div>
             <div class="chat-area-group">
@@ -676,7 +682,10 @@ const EVENT_LISTENERS = {
     "ON_SEND": [],
     "ON_RECEIVE": []
 };
-const LOGIKSAI_DEBUG = <?=defined("LOGIKSAI_DEBUG")?LOGIKSAI_DEBUG:"false"?>;
+var LOGIKSAI_PARAMS = {
+    "AVATAR": "<?=loadMedia('images/user.png')?>"
+};
+const LOGIKSAI_DEBUG = "<?=LOGIKSAI_DEBUG?"true":"false"?>";
 $(function() {
     
 });
@@ -695,6 +704,10 @@ function initiateLogiksAIChat(params) {
     $(".dropdownIcon").click(function(){
         $(".dropdownBox").toggleClass("active");
     });
+
+    if(params==null) params = {};
+
+    LOGIKSAI_PARAMS = $.extend(LOGIKSAI_PARAMS, params);
     
     clearChatWindow();
 
@@ -724,7 +737,14 @@ function sendMessage() {
 function recieveMessage(msgObj) {
     console.log("LOGIKSAI_RECIEVE", msgObj);
 
+    msgObj = $.extend({
+        "user": "",
+        "text": "",
+        "avatar": null,
+        "timestamp": new moment().format("Y-mm-D hh:MM:ss")
+    }, msgObj);
 
+    appendNewMessage(false, msgObj.user, msgObj.text, msgObj.avatar, msgObj.timestamp);
 
     $.each(EVENT_LISTENERS.ON_RECEIVE, function(func) {
         try {
@@ -742,7 +762,7 @@ function appendNewMessage(isOwner, msgUser, msgText, msgAvatar, timeStamp) {
         $("#chatAreaMain").append(`<div class="chat-msg owner">
                 <div class="chat-msg-profile">
                     <img class="chat-msg-img" src="${msgAvatar}" alt="${msgUser}" />
-                    <div class="chat-msg-date">Message sent ${timeStamp}</div>
+                    <div class="chat-msg-date">Message sent on ${timeStamp}</div>
                 </div>
                 <div class="chat-msg-content">
                     <div class="chat-msg-text">${msgText}</div>
@@ -752,7 +772,7 @@ function appendNewMessage(isOwner, msgUser, msgText, msgAvatar, timeStamp) {
         $("#chatAreaMain").append(`<div class="chat-msg server">
                 <div class="chat-msg-profile">
                     <img class="chat-msg-img" src="${msgAvatar}" alt="${msgUser}" />
-                    <div class="chat-msg-date">Message recieved ${timeStamp}</div>
+                    <div class="chat-msg-date">Message recieved at ${timeStamp}</div>
                 </div>
                 <div class="chat-msg-content">
                     <div class="chat-msg-text">${msgText}</div>

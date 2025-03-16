@@ -27,5 +27,22 @@ if (!function_exists("sendChatMessage")) {
         
         return $response;
     }
+
+    function configureLogiksAI($title = "LogiksAI !", $persona = false, $model = false, $tools = [], $theme = "") {
+        if(!defined("LOGIKSAI_DEBUG")) define("LOGIKSAI_DEBUG", "false");
+
+        $_ENV["LOGIKSAI_UUID"] = uniqid();
+        $_ENV["LOGIKSAI_TITLE"] = $title;
+        $_ENV["LOGIKSAI_STYLE"] = $theme;
+
+        if(!isset($_SESSION['LOGIKSAI'])) $_SESSION['LOGIKSAI'] = [];
+
+        $_SESSION['LOGIKSAI'][$_ENV["LOGIKSAI_UUID"]] = [
+            "TITLE"=> $title,
+            "PERSONA" => $persona,
+            "MODEL" => $model,
+            "TOOLS" => $tools,
+        ];
+    }
 }
 ?>
