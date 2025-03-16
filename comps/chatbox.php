@@ -704,7 +704,7 @@ function sendMessage() {
     $.each(EVENT_LISTENERS.ON_SEND, function(func) {
         try {
             if(typeof func == "function") func(msgObj);
-        } catch(Exception e) {}
+        } catch(e) {}
     });
 }
 function recieveMessage(msgObj) {
@@ -715,7 +715,7 @@ function recieveMessage(msgObj) {
     $.each(EVENT_LISTENERS.ON_RECEIVE, function(func) {
         try {
             if(typeof func == "function") func(msgObj);
-        } catch(Exception e) {}
+        } catch(e) {}
     });
 }
 function appendNewMessage(isOwner, msgUser, msgText, msgAvatar, timeStamp) {
