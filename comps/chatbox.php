@@ -22,6 +22,12 @@ if(!defined('ROOT')) exit('No direct script access allowed');
 /*    margin: 0 auto;*/
     overflow: hidden;
 }
+.chatApp {
+    max-width: 500px;
+    width: 100%;
+    float: left;
+}
+
 .chatApp img {
     max-width: 100%;
 }
@@ -362,10 +368,6 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     display: none;
 }
 
-.chatApp {
-    max-width: 500px;
-}
-
 .chat-area-footer input {
     background: #f3f3f3;
     border: 1px solid #eee;
@@ -534,10 +536,6 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     width: calc(100% - 500px);
     background: #f3f3f3;
     height: 100vh;
-}
-.chatApp{
-    width: 500px;
-    float: left;
 }
 
 @media (max-width: 1120px) {
