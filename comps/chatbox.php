@@ -156,7 +156,11 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     flex-direction: column;
     overflow: auto;
 }
-
+.chat-area-main .ajaxloading {
+    background-position: 20px;
+    margin: 0px;
+    padding: 20px;
+}
 .chat-area-header {
     display: flex;
     position: sticky;
@@ -217,7 +221,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 
 .chat-msg-content {
     margin-left: 12px;
-    max-width: 70%;
+    max-width: 80%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -607,7 +611,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 
 <?=$_ENV["LOGIKSAI_STYLE"]?>
 </style>
-    
+<script src='https://unpkg.com/showdown/dist/showdown.min.js' type='text/javascript' language='javascript'></script>
 <div class="chatApp" chatid='<?=$_ENV["LOGIKSAI_UUID"]?>'>
     <div id="chatAreaContainer" class="chat-area">
         <div class="chat-area-header">
@@ -678,10 +682,11 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     </div>
 </div>
 <script>
-const EVENT_LISTENERS = {
+const LOGIKSAI_EVENT_LISTENERS = {
     "ON_SEND": [],
     "ON_RECEIVE": []
 };
+const LOGIKSAI_CHATID = "<?=$_ENV["LOGIKSAI_UUID"]?>";
 var LOGIKSAI_PARAMS = {
     "AVATAR": "<?=loadMedia('images/user.png')?>"
 };
@@ -711,55 +716,74 @@ function initiateLogiksAIChat(params) {
     
     clearChatWindow();
 
-    console.log("LOGKSAI-INITIALIZED");
+    // console.log("LOGKSAI-INITIALIZED");
 }
 function sendMessage() {
     if($("#sendMessageBox").val()==null || $("#sendMessageBox").val().length<=0) {
         if(typeof lgksToast=="function") lgksToast("No message to send");
         return;
     }
-    const msgText = $("#sendMessageBox").val();
+    const msgText = $("#sendMessageBox").val().trim();
     const msgObj = {
-        "msg": msgText
+        "msg": msgText,
+        "id": new Date().getTime(),
+        "chatid": LOGIKSAI_CHATID
     };
     $("#sendMessageBox").val("");
 
-    appendNewMessage(true, "Self", msgText, LOGIKSAI_PARAMS.AVATAR, new moment().format("Y-mm-D hh:MM:ss"));
+    appendNewMessage(true, "Self", msgText, LOGIKSAI_PARAMS.AVATAR, new moment().format("hh:MM:ss"), msgObj.id);//YYYY-mm-D 
 
-    console.log("LOGIKSAI_SENDMSG", msgText);
+    // console.log("LOGIKSAI_SENDMSG", msgText);
 
-    $.each(EVENT_LISTENERS.ON_SEND, function(func) {
+    $.each(LOGIKSAI_EVENT_LISTENERS.ON_SEND, function(k, func) {
         try {
-            if(typeof func == "function") func(msgObj);
+            if(typeof func == "function") {
+                var temp = func(msgObj);
+                if(temp!=null) msgObj = temp;
+            }
         } catch(e) {}
     });
+
+    $("#chatAreaMain").append(`<div class='ajaxloading ajaxloading3'></div>`);
+
+    processAJAXPostQuery(_service("logiksAI", "send"), jsonToQueryString(msgObj), function(data) {
+        if(data.Data.status==="success") {
+            recieveMessage(data.Data);
+        } else {
+            recieveMessage(data.Data);
+        }
+    }, "json");
 }
 function recieveMessage(msgObj) {
     console.log("LOGIKSAI_RECIEVE", msgObj);
 
     msgObj = $.extend({
         "user": "",
-        "text": "",
+        "msg": "",
         "avatar": null,
-        "timestamp": new moment().format("Y-mm-D hh:MM:ss")
+        "timestamp": new moment().format("hh:MM:ss")//YYYY-mm-D 
     }, msgObj);
 
-    appendNewMessage(false, msgObj.user, msgObj.text, msgObj.avatar, msgObj.timestamp);
+    appendNewMessage(false, msgObj.user, msgObj.msg, msgObj.avatar, msgObj.timestamp, msgObj.id);
 
-    $.each(EVENT_LISTENERS.ON_RECEIVE, function(func) {
+    $.each(LOGIKSAI_EVENT_LISTENERS.ON_RECEIVE, function(k, func) {
         try {
             if(typeof func == "function") func(msgObj);
         } catch(e) {}
     });
 }
-function appendNewMessage(isOwner, msgUser, msgText, msgAvatar, timeStamp) {
+function appendNewMessage(isOwner, msgUser, msgText, msgAvatar, timeStamp, msgID) {
     if(msgAvatar==null || msgAvatar===false) msgAvatar = "<?=loadMedia('images/user.png')?>";
     // timeStamp
 
     $("#chatAreaMain").find(".chat-welcome").detach();
+    $("#chatAreaMain").find(".ajaxloading").detach();
+
+    if(msgText==null) msgText = "";
+    msgText = markdownToHTML(msgText);
 
     if(isOwner) {
-        $("#chatAreaMain").append(`<div class="chat-msg owner">
+        $("#chatAreaMain").append(`<div class="chat-msg owner" data-msgid='${msgID}'>
                 <div class="chat-msg-profile">
                     <img class="chat-msg-img" src="${msgAvatar}" alt="${msgUser}" />
                     <div class="chat-msg-date">Message sent on ${timeStamp}</div>
@@ -769,7 +793,7 @@ function appendNewMessage(isOwner, msgUser, msgText, msgAvatar, timeStamp) {
                 </div>
             </div>`);
     } else {
-        $("#chatAreaMain").append(`<div class="chat-msg server">
+        $("#chatAreaMain").append(`<div class="chat-msg server" data-msgid='${msgID}'>
                 <div class="chat-msg-profile">
                     <img class="chat-msg-img" src="${msgAvatar}" alt="${msgUser}" />
                     <div class="chat-msg-date">Message recieved at ${timeStamp}</div>
@@ -791,5 +815,21 @@ function clearChatWindow() {
                     </div>
                 </div>
             </div>`);
+}
+function jsonToQueryString(json) {
+    return Object.keys(json)
+        .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(json[key]))
+        .join('&');
+}
+function markdownToHTML(mdData) {
+    var converter = new showdown.Converter();
+
+    return converter.makeHtml(mdData);
+}
+function addLogiksAIEventListener(funcType, func) {
+    if(LOGIKSAI_EVENT_LISTENERS[funcType]==null) return false;
+
+    LOGIKSAI_EVENT_LISTENERS[funcType].push(func);
+    return true;
 }
 </script>
