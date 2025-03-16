@@ -262,7 +262,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     width: 100%;
 }
 
-.chat-area-footer {
+.chat-area-foot {
     display: flex;
     border-top: 1px solid #eef2f4;
     width: 100%;
@@ -274,22 +274,22 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     left: 0;
 }
 
-.chat-area-footer svg {
+.chat-area-foot svg {
     color: #c1c7cd;
     width: 20px;
     flex-shrink: 0;
     cursor: pointer;
 }
 
-.chat-area-footer svg:hover {
+.chat-area-foot svg:hover {
     color: var(--settings-icon-hover);
 }
 
-.chat-area-footer svg+svg {
+.chat-area-foot svg+svg {
     margin-left: 12px;
 }
 
-.chat-area-footer input {
+.chat-area-foot input, .chat-area-foot textarea {
     border: none;
     color: #000;
     background-color: var(--input-bg);
@@ -300,11 +300,11 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     width: 100%;
 }
 
-.chat-area-footer input::placeholder {
+.chat-area-foot input::placeholder, , .chat-area-foot textarea::placeholder {
     color: #a2a2a2;
 }
 
-.chat-area-footer input:focus{
+.chat-area-foot input:focus, .chat-area-foot textarea:focus{
     outline: none;
 }
 
@@ -373,7 +373,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     display: none;
 }
 
-.chat-area-footer input {
+.chat-area-foot input, .chat-area-foot textarea {
     background: #f3f3f3;
     border: 1px solid #eee;
     margin: 0;
@@ -400,7 +400,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     border-radius: 4px;
 }
 
-.chat-area-footer svg {
+.chat-area-foot svg {
     color: #919191;
 }
 
@@ -623,7 +623,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
         <div id="chatAreaMain" class="chat-area-main">
             
         </div>
-        <div class="chat-area-footer">
+        <div class="chat-area-foot">
             <div class="dropdownBox">
                 <ul>
                     <li>
@@ -701,6 +701,8 @@ function sendMessage() {
     const msgObj = {
         "msg": msgText
     };
+    $("#sendMessageBox").val("");
+
     appendNewMessage(true, "Self", msgText, null, new moment().format("Y-mm-D hh:MM:ss"));
 
     console.log("LOGIKSAI_SENDMSG", msgText);
