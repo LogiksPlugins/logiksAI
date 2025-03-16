@@ -451,7 +451,8 @@ if(!defined('ROOT')) exit('No direct script access allowed');
 .dropdownBox {
     position: absolute;
     width: 280px;
-    height: 230px;
+/*    height: 230px;*/
+    height: auto;
     background: #fff;
     box-shadow: 0 2px 5px 0 rgba(11, 20, 26, .26), 0 2px 10px 0 rgba(11, 20, 26, .16);
     bottom: 76px;
@@ -466,7 +467,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     padding: 0;
     margin: 0;
     list-style: none;
-    padding: 26px;
+    padding: 12px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -644,7 +645,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
                         </a>
                         <span>Image</span>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">
                             <i class="fa fa-video-camera" aria-hidden="true"></i>
                         </a>
@@ -655,8 +656,7 @@ if(!defined('ROOT')) exit('No direct script access allowed');
                             <i class="fa fa-headphones" aria-hidden="true"></i>
                         </a>
                         <span>Audio</span>
-                    </li>
-                    
+                    </li> -->
                 </ul>
             </div>
             <div class="dropdownIcon">
