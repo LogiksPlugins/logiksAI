@@ -715,7 +715,7 @@ const EVENT_LISTENERS = {
     "ON_SEND": [],
     "ON_RECEIVE": []
 };
-const LOGIKSAI_DEBUG = <?=(!defined("LOGIKSAI_DEBUG")?LOGIKSAI_DEBUG:false?>;
+const LOGIKSAI_DEBUG = <?=defined("LOGIKSAI_DEBUG")?LOGIKSAI_DEBUG:false?>;
 $(function() {
     
 });
