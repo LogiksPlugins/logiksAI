@@ -387,8 +387,8 @@ if(!defined('ROOT')) exit('No direct script access allowed');
 
 .sendBox i {
     position: absolute;
-    right: 9px;
-    top: 9px;
+    right: 16px;
+    top: 23px;
     width: 30px;
     height: 30px;
     background: #0070ff;
@@ -686,6 +686,14 @@ function initiateLogiksAIChat(params) {
         if(e.shiftKey && e.keyCode==13) {
             sendMessage();
         }
+    });
+
+    $(".menuToggle").click(function(){
+        $(".conversation-area").fadeToggle(500);
+    });
+
+    $(".dropdownIcon").click(function(){
+        $(".dropdownBox").toggleClass("active");
     });
     
     clearChatWindow();
