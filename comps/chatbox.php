@@ -529,11 +529,22 @@ if(!defined('ROOT')) exit('No direct script access allowed');
     opacity: 1;
 }
 
-.mainWrapper{
-   float: left;
-    width: calc(100% - 500px);
-    background: #f3f3f3;
-    height: 100vh;
+.sendBox textarea {
+    width: 100%;
+    border: 1px solid #DDD;
+}
+
+.chat-welcome {
+
+}
+.chat-welcome .chat-msg-content {
+    margin: auto;
+}
+.chat-welcome .chat-msg-content .chat-msg-text {
+
+}
+.chat-welcome .chat-msg-content img {
+
 }
 
 @media (max-width: 1120px) {
@@ -604,59 +615,11 @@ if(!defined('ROOT')) exit('No direct script access allowed');
             </div>
         </div>
         <div id="chatAreaMain" class="chat-area-main">
-            <div class="chat-msg">
-                <div class="chat-msg-profile">
-                    <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png" alt="" />
-                    <div class="chat-msg-date">Message seen 1.22pm</div>
-                </div>
+            <div class="chat-welcome">
                 <div class="chat-msg-content">
-                    <div class="chat-msg-text">Luctus et ultrices posuere cubilia curae.</div>
-                    <div class="chat-msg-text">
-                        <img src="image/tech-yearender-2022.webp" />
-                    </div>
-                    <div class="chat-msg-text">Neque gravida in fermentum et sollicitudin ac orci phasellus egestas. Pretium lectus quam id leo.</div>
+                    <div class="chat-msg-text"><h4>What can I help with?</h4></div>
                 </div>
             </div>
-            <div class="chat-msg owner">
-                <div class="chat-msg-profile">
-                    <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png" alt="" />
-                    <div class="chat-msg-date">Message seen 1.22pm</div>
-                </div>
-                <div class="chat-msg-content">
-                    <div class="chat-msg-text">Sit amet risus nullam eget felis eget. Dolor sed viverra ipsum😂😂😂</div>
-                    <div class="chat-msg-text">Cras mollis nec arcu malesuada tincidunt.</div>
-                </div>
-            </div>
-            <div class="chat-msg">
-                <div class="chat-msg-profile">
-                    <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
-                    <div class="chat-msg-date">Message seen 2.45pm</div>
-                </div>
-                <div class="chat-msg-content">
-                    <div class="chat-msg-text">Aenean tristique maximus tortor non tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae😊</div>
-                    <div class="chat-msg-text">Ut faucibus pulvinar elementum integer enim neque volutpat.</div>
-                </div>
-            </div>
-            <div class="chat-msg owner">
-                <div class="chat-msg-profile">
-                    <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png" alt="" />
-                    <div class="chat-msg-date">Message seen 2.50pm</div>
-                </div>
-                <div class="chat-msg-content">
-                    <div class="chat-msg-text">posuere eget augue sodales, aliquet posuere eros.</div>
-                    <div class="chat-msg-text">Cras mollis nec arcu malesuada tincidunt.</div>
-                </div>
-            </div>
-            <div class="chat-msg">
-                <div class="chat-msg-profile">
-                    <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%2812%29.png" alt="" />
-                    <div class="chat-msg-date">Message seen 3.16pm</div>
-                </div>
-                <div class="chat-msg-content">
-                    <div class="chat-msg-text">Egestas tellus rutrum tellus pellentesque</div>
-                </div>
-            </div>
-            
         </div>
         <div class="chat-area-footer">
             <div class="dropdownBox">
@@ -700,8 +663,8 @@ if(!defined('ROOT')) exit('No direct script access allowed');
             </svg>
           </div>
             <div class="sendBox">
-                <input id='sendMessageBox' type="text" placeholder="Type something here..." />
-                <i data-v-e08301e8="" class="fa fa-paper-plane"></i>
+                <textarea id='sendMessageBox' type="text" placeholder="Type message here..." ></textarea>
+                <i class="fa fa-paper-plane sendMessageBtn"></i>
             </div>
         </div>
     </div>
@@ -716,6 +679,69 @@ $(function() {
     //$("#chatAreaContainer").scrollTop($("#chatAreaMain").height());
 });
 function initiateLogiksAIChat(params) {
+    $("#chatAreaContainer .sendMessageBtn").click(sendMessage);
+    $("#chatAreaContainer textarea").keyUp(function(e) {
+        if(e.shiftKey && e.keyCode==13) {
+            sendMessage();
+        }
+    });
 
+    console.log("LOGKSAI-INITIALIZED");
+}
+function sendMessage() {
+    if($("#sendMessageBox").val()==null || $("#sendMessageBox").val().length<=0) {
+        if(typeof lgksToast=="function") lgksToast("No message to send");
+        return;
+    }
+    const msgText = $("#sendMessageBox").val();
+    const msgObj = {
+        "msg": msgText
+    };
+    appendNewMessage(true, "Self", msgText, null, new moment().format("Y-mm-D hh:MM:ss"));
+
+    console.log("LOGIKSAI_SENDMSG", msgText);
+
+    $.each(EVENT_LISTENERS.ON_SEND, function(func) {
+        try {
+            if(typeof func == "function") func(msgObj);
+        } catch(Exception e) {}
+    });
+}
+function recieveMessage(msgObj) {
+    console.log("LOGIKSAI_RECIEVE", msgObj);
+
+
+
+    $.each(EVENT_LISTENERS.ON_RECEIVE, function(func) {
+        try {
+            if(typeof func == "function") func(msgObj);
+        } catch(Exception e) {}
+    });
+}
+function appendNewMessage(isOwner, msgUser, msgText, msgAvatar, timeStamp) {
+    if(msgAvatar==null || msgAvatar===false) msgAvatar = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%2812%29.png";
+    // timeStamp
+
+    if(isOwner) {
+        $("#chatAreaMain").append(`<div class="chat-msg owner">
+                <div class="chat-msg-profile">
+                    <img class="chat-msg-img" src="${msgAvatar}" alt="${msgUser}" />
+                    <div class="chat-msg-date">Message sent ${timeStamp}</div>
+                </div>
+                <div class="chat-msg-content">
+                    <div class="chat-msg-text">${msgText}</div>
+                </div>
+            </div>`);
+    } else {
+        $("#chatAreaMain").append(`<div class="chat-msg server">
+                <div class="chat-msg-profile">
+                    <img class="chat-msg-img" src="${msgAvatar}" alt="${msgUser}" />
+                    <div class="chat-msg-date">Message recieved ${timeStamp}</div>
+                </div>
+                <div class="chat-msg-content">
+                    <div class="chat-msg-text">${msgText}</div>
+                </div>
+            </div>`);
+    }
 }
 </script>
