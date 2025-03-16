@@ -28,7 +28,7 @@ if (!function_exists("sendChatMessage")) {
         return $response;
     }
 
-    function configureLogiksAI($title = "LogiksAI !", $persona = false, $model = false, $tools = [], $theme = "") {
+    function configureLogiksAI($title = "LogiksAI !", $persona = false, $model = false, $tools = [], $miscParams = [], $theme = "") {
         if(!defined("LOGIKSAI_DEBUG")) define("LOGIKSAI_DEBUG", "false");
 
         $_ENV["LOGIKSAI_UUID"] = uniqid();
@@ -38,10 +38,11 @@ if (!function_exists("sendChatMessage")) {
         if(!isset($_SESSION['LOGIKSAI'])) $_SESSION['LOGIKSAI'] = [];
 
         $_SESSION['LOGIKSAI'][$_ENV["LOGIKSAI_UUID"]] = [
-            "TITLE"=> $title,
+            "TITLE" => $title,
             "PERSONA" => $persona,
             "MODEL" => $model,
             "TOOLS" => $tools,
+            "PARAMS" => $miscParams
         ];
     }
 }

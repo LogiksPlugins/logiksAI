@@ -724,7 +724,7 @@ function sendMessage() {
     };
     $("#sendMessageBox").val("");
 
-    appendNewMessage(true, "Self", msgText, null, new moment().format("Y-mm-D hh:MM:ss"));
+    appendNewMessage(true, "Self", msgText, LOGIKSAI_PARAMS.AVATAR, new moment().format("Y-mm-D hh:MM:ss"));
 
     console.log("LOGIKSAI_SENDMSG", msgText);
 
@@ -753,7 +753,7 @@ function recieveMessage(msgObj) {
     });
 }
 function appendNewMessage(isOwner, msgUser, msgText, msgAvatar, timeStamp) {
-    if(msgAvatar==null || msgAvatar===false) msgAvatar = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%2812%29.png";
+    if(msgAvatar==null || msgAvatar===false) msgAvatar = "<?=loadMedia('images/user.png')?>";
     // timeStamp
 
     $("#chatAreaMain").find(".chat-welcome").detach();
