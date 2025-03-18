@@ -22,13 +22,11 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     flex-direction: column;
     background-color: #DFCFBE;
     max-width: 1600px;
-    height: 95vh;
+    /*    max-width: 500px;*/
+    width: 100%;
+    height: 100%;
 /*    margin: 0 auto;*/
     overflow: hidden;
-}
-.chatApp {
-    max-width: 500px;
-    width: 100%;
     float: left;
 }
 
@@ -216,7 +214,8 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 
 .chat-msg {
     display: flex;
-    padding: 0 20px 45px;
+/*    padding: 0 20px 45px;*/
+    padding: 0 10px 40px;
 }
 
 .chat-msg-content {
@@ -229,7 +228,8 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 
 .chat-msg-text {
     background-color: var(--chat-text-bg);
-    padding: 15px;
+/*    padding: 15px;*/
+    padding: 15px 15px 8px 15px;
     border-radius: 20px 20px 20px 0;
     line-height: 1.5;
     font-size: 14px;
@@ -611,7 +611,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 
 <?=$_ENV["LOGIKSAI_STYLE"]?>
 </style>
-<script src='https://unpkg.com/showdown/dist/showdown.min.js' type='text/javascript' language='javascript'></script>
+<script src='<?=_jsLink("showdown.min")?>' type='text/javascript' language='javascript'></script>
 <div class="chatApp" chatid='<?=$_ENV["LOGIKSAI_UUID"]?>'>
     <div id="chatAreaContainer" class="chat-area">
         <div class="chat-area-header">
