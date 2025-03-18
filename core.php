@@ -20,7 +20,7 @@ if (!function_exists("loadLogiksAI")) {
         if(!$sessID) $sessID = uniqid();
         if(!$appID) $appID = "app01";
 
-        if(!defined("LOGIKSAI_DEBUG")) define("LOGIKSAI_DEBUG", "false");
+        if(!isset($_SESSION["LOGIKSAI_DEBUG"])) $_SESSION["LOGIKSAI_DEBUG"] = false;
         
         if(!isset($_SESSION['LOGIKSAI_APILIST']) || !isset($_SESSION['LOGIKSAI_APILIST'][$endPoint])) {
             $_ENV['CURL_ERROR'] = "Incorrect Endpoint - $endPoint, Not Defined";
@@ -32,14 +32,14 @@ if (!function_exists("loadLogiksAI")) {
         
         if($data && is_array($data)) {
             $data = array_merge([
-                    "channel"=> (defined("LOGIKSAI_CHANNEL")?LOGIKSAI_CHANNEL:"logiksweb"),
+                    "channel"=> (isset($_SESSION['LOGIKSAI_CHANNEL'])?$_SESSION['LOGIKSAI_CHANNEL']:"logiksweb"),
                 	"uuid"=> $_SESSION['SESS_USER_ID'],
-                	"debug"=> (LOGIKSAI_DEBUG=="true" || LOGIKSAI_DEBUG===true)
+                	"debug"=> ($_SESSION["LOGIKSAI_DEBUG"]=="true" || $_SESSION["LOGIKSAI_DEBUG"]===true)
             	], $data);    
         }
         
         $curlConfig = array(
-            CURLOPT_URL            => LOGIKSAI_BASE_URL.$endPointURI,
+            CURLOPT_URL            => $_SESSION["LOGIKSAI_BASE_URL"].$endPointURI,
             CURLOPT_HTTPHEADER     => [
                 // "Accept: */*",
                 // "Cache-Control: no-cache",
@@ -48,7 +48,7 @@ if (!function_exists("loadLogiksAI")) {
                 // "accept-encoding: gzip, deflate",
                 "cache-control: no-cache",
                 "Content-Type: application/json",
-                "Authorization: Bearer ".LOGIKSAI_AUTH_KEY,
+                "Authorization: Bearer ".$_SESSION["LOGIKSAI_AUTH_KEY"],
                 // "x-haskey: ".sha1(LOGIKSAI_AUTH_SECRET.json_encode($data)),
                 "appid: ".$appID,
                 "sesskey: ".$sessID
@@ -72,13 +72,22 @@ if (!function_exists("loadLogiksAI")) {
         $err = curl_error($curl);
         curl_close($ch);
         
-        //var_dump([$result, $err]);exit("DONE");
+        // var_dump([$result, $err]);exit("DONE");
 
         if ($err) {
             $_ENV['CURL_ERROR'] = $err;
             return false;
         } else {
-            return json_decode($result, true);
+            $responseData = json_decode($result, true);
+
+
+            if(isset($responseData['errors'])) {
+                $_ENV['CURL_ERROR'] = $responseData['errors'];
+                return false;
+            }
+
+
+            return $responseData;
         }
     }
     

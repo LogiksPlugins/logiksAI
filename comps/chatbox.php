@@ -60,11 +60,9 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     flex-grow: 1;
 }
 
-
-
 .msg-profile {
-    width: 44px;
-    height: 44px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 15px;
@@ -690,7 +688,7 @@ const LOGIKSAI_CHATID = "<?=$_ENV["LOGIKSAI_UUID"]?>";
 var LOGIKSAI_PARAMS = {
     "AVATAR": "<?=loadMedia('images/user.png')?>"
 };
-const LOGIKSAI_DEBUG = "<?=LOGIKSAI_DEBUG?"true":"false"?>";
+const LOGIKSAI_DEBUG = "<?=$_SESSION["LOGIKSAI_DEBUG"]?"true":"false"?>";
 $(function() {
     
 });

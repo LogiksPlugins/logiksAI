@@ -55,7 +55,7 @@ function _service_send() {
 
 		$response = sendChatMessage($userMessage, $params, $sessID, $appID);
 
-		// printArray([$_POST, $status]);
+		// printArray([$response, $_POST, $status]);exit();
 
 		if($response) {
 			return [
