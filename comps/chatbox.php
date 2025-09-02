@@ -34,12 +34,12 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     max-width: 100%;
 }
 
-.wrapper {
+/*.wrapper {
     width: 100%;
     display: flex;
     flex-grow: 1;
     overflow: hidden;
-}
+}*/
 
 .conversation-area,
 .detail-area {
@@ -60,7 +60,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     flex-grow: 1;
 }
 
-.msg-profile {
+.chat-area .msg-profile {
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -68,38 +68,38 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     margin-right: 15px;
 }
 
-.msg-profile.group {
+.chat-area .msg-profile .group {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #eef2f4;
 }
 
-.msg-profile.group svg {
+.chat-area .msg-profile.chat-area .group svg {
     width: 60%;
 }
 
-.msg {
+.chat-area .msg {
     display: flex;
     align-items: center;
     padding: 20px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.chat-area .2s;
     position: relative;
 }
 
-.msg:hover {
+.chat-area .msg:hover {
     background-color: var(--msg-hover-bg);
 }
 
-.msg.active {
+.chat-area .msg .active {
     background: linear-gradient(to right,
-            rgba(47, 50, 56, 0.54),
+            rgba(47, 50, 56, 0.chat-area .54),
             rgba(238, 242, 244, 0) 100%);
     border-left: 4px solid #0086ff;
 }
 
-.msg.online:before {
+.chat-area .msg .online:before {
     content: "";
     position: absolute;
     background-color: #23be7e;
@@ -111,23 +111,23 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     bottom: 19px;
 }
 
-.msg-username {
+.chat-area .msg-username {
     margin-bottom: 4px;
     font-weight: 600;
     font-size: 15px;
 }
 
-.msg-detail {
+.chat-area .msg-detail {
     overflow: hidden;
 }
 
-.msg-content {
+.chat-area .msg-content {
     font-weight: 500;
     font-size: 13px;
     display: flex;
 }
 
-.add {
+.chat-area .add {
     position: sticky;
     bottom: 25px;
     background-color: #0086ff;
@@ -135,7 +135,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     height: 60px;
     border: 0;
     border-radius: 50%;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-plus'%3e%3cpath d='M12 5v14M5 12h14'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.chat-area .w3.chat-area .org/2000/svg' width='24' height='24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-plus'%3e%3cpath d='M12 5v14M5 12h14'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: 28px;
@@ -152,12 +152,12 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     flex-direction: column;
     overflow: auto;
 }
-.chat-area-main .ajaxloading {
+.chat-area-main  .ajaxloading {
     background-position: 20px;
     margin: 0px;
     padding: 20px;
 }
-.chat-area-header {
+.chat-area .chat-area-header {
     display: flex;
     position: sticky;
     top: 0;
@@ -170,29 +170,29 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     background: var(--chat-header-bg);
 }
 
-.chat-area-profile {
+.chat-area .chat-area-profile {
     width: 32px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.chat-area-title {
+.chat-area .chat-area-title {
     font-size: 18px;
     font-weight: 600;
 }
 
-.chat-area-main {
+.chat-area .chat-area-main {
     flex-grow: 1;
 }
 
-.chat-msg-img {
+.chat-area .chat-msg-img {
     height: 40px;
     width: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.chat-msg-profile {
+.chat-area .chat-msg-profile {
     flex-shrink: 0;
     margin-top: auto;
     margin-bottom: -20px;
@@ -200,7 +200,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     margin-top: 0px;
 }
 
-.chat-msg-date {
+.chat-area .chat-msg-date {
     position: absolute;
     left: calc(100% + 12px);
     bottom: 0;
@@ -210,13 +210,13 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     white-space: nowrap;
 }
 
-.chat-msg {
+.chat-area .chat-msg {
     display: flex;
 /*    padding: 0 20px 45px;*/
     padding: 0 10px 40px;
 }
 
-.chat-msg-content {
+.chat-area .chat-msg-content {
     margin-left: 12px;
     max-width: 80%;
     display: flex;
@@ -224,7 +224,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     align-items: flex-start;
 }
 
-.chat-msg-text {
+.chat-area .chat-msg-text {
     background-color: var(--chat-text-bg);
 /*    padding: 15px;*/
     padding: 15px 15px 8px 15px;
@@ -234,41 +234,41 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     font-weight: 500;
 }
 
-.chat-msg-text+.chat-msg-text {
+.chat-area .chat-msg-text+ .chat-msg-text {
     margin-top: 10px;
 }
 
-.chat-msg-text {
+.chat-area .chat-msg-text {
     color: #000;
 }
 
-.owner {
+.chat-area .owner {
     flex-direction: row-reverse;
 }
 
-.owner .chat-msg-content {
+.chat-area .owner  .chat-msg-content {
     margin-left: 0;
     margin-right: 12px;
     align-items: flex-end;
 }
 
-.owner .chat-msg-text {
+.chat-area .owner  .chat-msg-text {
     background-color: #0086ff;
     color: #fff;
     border-radius: 20px 20px 0 20px;
 }
 
-.owner .chat-msg-date {
+.chat-area .owner  .chat-msg-date {
     left: auto;
     right: calc(100% + 12px);
 }
 
-.chat-msg-text img {
+.chat-area .chat-msg-text img {
     max-width: 300px;
     width: 100%;
 }
 
-.chat-area-foot {
+.chat-area .chat-area-foot {
     display: flex;
     border-top: 1px solid #eef2f4;
     width: 100%;
@@ -280,22 +280,22 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     left: 0;
 }
 
-.chat-area-foot svg {
+.chat-area .chat-area-foot svg {
     color: #c1c7cd;
     width: 20px;
     flex-shrink: 0;
     cursor: pointer;
 }
 
-.chat-area-foot svg:hover {
+.chat-area .chat-area-foot svg:hover {
     color: var(--settings-icon-hover);
 }
 
-.chat-area-foot svg+svg {
+.chat-area .chat-area-foot svg+svg {
     margin-left: 12px;
 }
 
-.chat-area-foot input, .chat-area-foot textarea {
+.chat-area .chat-area-foot input, .chat-area .chat-area-foot textarea {
     border: none;
     color: #000;
     background-color: var(--input-bg);
@@ -306,19 +306,19 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     width: 100%;
 }
 
-.chat-area-foot input::placeholder, , .chat-area-foot textarea::placeholder {
+.chat-area .chat-area-foot input::placeholder, , .chat-area .chat-area-foot textarea::placeholder {
     color: #a2a2a2;
 }
 
-.chat-area-foot input:focus, .chat-area-foot textarea:focus{
+.chat-area .chat-area-foot input:focus, .chat-area .chat-area-foot textarea:focus{
     outline: none;
 }
 
-.logo {
+.chat-area .logo {
     width: auto;
 }
 
-.headerRow {
+.chat-area .headerRow {
     width: 325px;
     margin: -36px;
     padding: 0;
@@ -327,24 +327,24 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     align-items: center;
 }
 
-.headerRow i {
+.chat-area .headerRow i {
     color: #000;
     font-size: 20px;
     vertical-align: -2px;
     margin-right: 3px;
 }
 
-.headerRow span {
+.chat-area .headerRow span {
     color: #000;
     font-size: 14px;
     font-weight: 500;
 }
 
-.col-md-6:not(:last-child) .headerBlock {
+.chat-area .col-md-6:not(:last-child)  .headerBlock {
     border-right: 1px solid #ddd;
 }
 
-.chat-area-header {
+.chat-area .chat-area-header {
     display: flex;
     position: sticky;
     top: 0;
@@ -359,39 +359,39 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     background: #fff;
 }
 
-.headerBlock {
+.chat-area .headerBlock {
     justify-content: center;
     display: flex;
 }
 
-.chat-area-header .msg {
+.chat-area .chat-area-header .msg {
     padding: 00;
 }
 
-.chat-area-header {
+.chat-area .chat-area-header {
     /*padding: 6px 20px;*/
     padding: 0px 2px;
 }
 
-.menuToggle {}
+.chat-area .menuToggle {}
 
-.conversation-area .headerRow {
+.chat-area .conversation-area  .headerRow {
     display: none;
 }
 
-.chat-area-foot input, .chat-area-foot textarea {
+.chat-area .chat-area-foot input, .chat-area .chat-area-foot textarea {
     background: #f3f3f3;
     border: 1px solid #eee;
     margin: 0;
 }
 
-.sendBox {
+.chat-area .sendBox {
     position: relative;
     flex-grow: 1;
     padding-left: 13px;
 }
 
-.sendBox i {
+.chat-area .sendBox i {
     position: absolute;
     right: 16px;
     top: 23px;
@@ -406,25 +406,285 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     border-radius: 4px;
 }
 
-.chat-area-foot svg {
+.chat-area .chat-area-foot svg {
     color: #919191;
 }
 
-.chat-area-main {
+.chat-area .chat-area-main {
     padding-top: 15px;
     background: url(image/chat-bg.jpg);
 }
 
-.chat-msg-text {
+.chat-area .chat-msg-text {
     background-color: #ffffff;
 }
 
-.chat-area-group i {
+.chat-area .chat-area-group i {
     font-size: 23px;
 }
 
-.chat-msg-date {
+.chat-area .chat-msg-date {
     color: #232323;
+}
+
+.chat-area .owner  .chat-msg-text {
+    border-radius: 5px 5px 0 5px;
+}
+
+.chat-area .chat-msg-text {
+    border-radius: 5px 5px 5px 0;
+}
+
+.chat-area .dropdownBox {
+    position: absolute;
+    width: 280px;
+/*    height: 230px;*/
+    height: auto;
+    background: #fff;
+    box-shadow: 0 2px 5px 0 rgba(11, 20, 26, .26), 0 2px 10px 0 rgba(11, 20, 26, . .16);
+    bottom: 76px;
+    border-radius: 8px !important;
+    transform: scale(0);
+    opacity: 0;
+    transition: ease 0 .4s all;
+    transform-origin: left bottom;
+}
+
+.chat-area .dropdownBox ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    padding: 12px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chat-area .dropdownBox ul li {
+    flex: 0 0 33 .33%;
+    max-width: 33 .33%;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    text-align: center;
+}
+
+.chat-area .dropdownBox ul li a {
+    width: 45px;
+    height: 45px;
+    background: #ff7e0c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+.chat-area .dropdownBox ul li a i {
+    color: #fff;
+    font-size: 17px;
+}
+
+.chat-area .dropdownBox ul li span {
+    font-size: 12px;
+    margin-top: 9px;
+}
+
+.chat-area .dropdownBox ul li:nth-child(1) a {
+    background: #00abff;
+}
+
+.chat-area .dropdownBox ul li:nth-child(2) a {
+    background: #ff4545;
+}
+
+.chat-area .dropdownBox ul li:nth-child(3) a {
+    background: #9861ff;
+}
+
+.chat-area .dropdownBox ul li:nth-child(4) a {
+    background: #ff7801;
+}
+
+.chat-area .dropdownBox ul li:nth-child(5) a {
+    background: #3ab97a;
+}
+
+.chat-area .dropdownBox .active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.chat-area .sendBox textarea {
+    width: 100%;
+    border: 1px solid #DDD;
+}
+
+.chat-area .chat-welcome {
+
+}
+.chat-area .chat-welcome  .chat-msg-content {
+    margin: auto;
+}
+.chat-area .chat-welcome  .chat-msg-content  .chat-msg-text {
+    width: 100%;
+    border-radius: 20px !important;
+    text-align: center;
+}
+.chat-area .chat-welcome  .chat-msg-content img {
+
+}
+.chat-area .chat-welcome  .chat-msg-content  .welcome-icon {
+    width: 100px;
+    margin: auto;
+}
+.chat-area .sendBox textarea {
+    width: 100%;
+    border: navajowhite;
+    background: transparent;
+    height: 40px;
+}
+.chat-area .sendBox{
+    height: 80px;
+}
+.chat-area .sendBox:after {
+    content: "";
+    position: absolute;
+    border: 1px solid #DDD;
+    background: #f3f3f3;
+    border-radius: 16px !important;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    right: 0;
+    z-index: -1;
+}
+.chat-area .sendBox i{
+    top: 42px;
+}
+.chat-area .msg-username {
+   
+    font-size: 15px;
+    font-weight: 400;
+    
+}
+.chat-area .chat-area-group i {
+    font-size: 14px;
+}
+.chat-area .chat-area-group .btn {
+    border: 0;
+}
+.chat-area .chat-area-main{
+    padding: 15px 18px;
+}
+.chat-area .chat-msg-img {
+    height: 35px;
+    width: 35px;
+    border-radius: 7px !important;
+}
+.chat-area  .sendBox i{
+    font-size: 14px;
+}
+.sendBox textarea::-webkit-scrollbar {
+    width: 0;
+}
+.chat-area .sendBox textarea {
+    width: 100%;
+    border: navajowhite;
+    background: transparent;
+    height: 40px;
+}
+.chat-area .sendBox{
+    height: 80px;
+}
+.chat-area .sendBox:after {
+    content: "";
+    position: absolute;
+    border: 1px solid #DDD;
+    background: #f3f3f3;
+    border-radius: 16px !important;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    right: 0;
+    z-index: -1;
+}
+.chat-area .sendBox i{
+    top: 42px;
+}
+.chat-area .msg-username {
+   
+    font-size: 15px;
+    font-weight: 400;
+    
+}
+.chat-area .chat-area-group i {
+    font-size: 14px;
+}
+.chat-area .chat-area-group .btn {
+    border: 0;
+}
+.chat-area .chat-area-main{
+    padding: 15px 18px;
+}
+.chat-area .chat-msg-img {
+    height: 35px;
+    width: 35px;
+    border-radius: 7px !important;
+}
+.chat-area  .sendBox i{
+    font-size: 14px;
+}
+.sendBox textarea::-webkit-scrollbar {
+    width: 0;
+}
+@media (max-width: 1120px) {
+    .chat-area .detail-area {
+        display: none;
+    }
+}
+
+@media (max-width: 780px) {
+    .chat-area .conversation-area {
+        display: none;
+    }
+
+    .chat-area .search-bar {
+        margin-left: 0;
+        flex-grow: 1;
+    }
+
+    .chat-area .search-bar input {
+        padding-right: 10px;
+    }
+
+    .chat-area .headerRow {
+        display: none;
+    }
+
+    .chat-area .conversation-area  .headerRow {
+        display: flex;
+        width: auto;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        height: 50px;
+    }
+
+    .chat-area .col-6:not(:last-child) .headerBlock {
+        border-right: 1px solid #ddd;
+    }
+
+    .chat-area .conversation-area,
+    .chat-area .detail-area {
+        width: 100%;
+    }
+
+    .chat-area .add {
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 ::-webkit-scrollbar {
@@ -444,167 +704,6 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
-}
-
-.owner .chat-msg-text {
-    border-radius: 5px 5px 0 5px;
-}
-
-.chat-msg-text {
-    border-radius: 5px 5px 5px 0;
-}
-
-.dropdownBox {
-    position: absolute;
-    width: 280px;
-/*    height: 230px;*/
-    height: auto;
-    background: #fff;
-    box-shadow: 0 2px 5px 0 rgba(11, 20, 26, .26), 0 2px 10px 0 rgba(11, 20, 26, .16);
-    bottom: 76px;
-    border-radius: 8px !important;
-    transform: scale(0);
-    opacity: 0;
-    transition: ease 0.4s all;
-    transform-origin: left bottom;
-}
-
-.dropdownBox ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    padding: 12px;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.dropdownBox ul li {
-    flex: 0 0 33.33%;
-    max-width: 33.33%;
-    padding: 10px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    text-align: center;
-}
-
-.dropdownBox ul li a {
-    width: 45px;
-    height: 45px;
-    background: #ff7e0c;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    text-decoration: none;
-}
-
-.dropdownBox ul li a i {
-    color: #fff;
-    font-size: 17px;
-}
-
-.dropdownBox ul li span {
-    font-size: 12px;
-    margin-top: 9px;
-}
-
-.dropdownBox ul li:nth-child(1) a {
-    background: #00abff;
-}
-
-.dropdownBox ul li:nth-child(2) a {
-    background: #ff4545;
-}
-
-.dropdownBox ul li:nth-child(3) a {
-    background: #9861ff;
-}
-
-.dropdownBox ul li:nth-child(4) a {
-    background: #ff7801;
-}
-
-.dropdownBox ul li:nth-child(5) a {
-    background: #3ab97a;
-}
-
-.dropdownBox.active {
-    transform: scale(1);
-    opacity: 1;
-}
-
-.sendBox textarea {
-    width: 100%;
-    border: 1px solid #DDD;
-}
-
-.chat-welcome {
-
-}
-.chat-welcome .chat-msg-content {
-    margin: auto;
-}
-.chat-welcome .chat-msg-content .chat-msg-text {
-    width: 100%;
-    border-radius: 20px !important;
-    text-align: center;
-}
-.chat-welcome .chat-msg-content img {
-
-}
-.chat-welcome .chat-msg-content .welcome-icon {
-    width: 100px;
-    margin: auto;
-}
-
-@media (max-width: 1120px) {
-    .detail-area {
-        display: none;
-    }
-}
-
-@media (max-width: 780px) {
-    .conversation-area {
-        display: none;
-    }
-
-    .search-bar {
-        margin-left: 0;
-        flex-grow: 1;
-    }
-
-    .search-bar input {
-        padding-right: 10px;
-    }
-
-    .headerRow {
-        display: none;
-    }
-
-    .conversation-area .headerRow {
-        display: flex;
-        width: auto;
-        margin-top: 0px;
-        margin-bottom: 10px;
-        height: 50px;
-    }
-
-    .col-6:not(:last-child) .headerBlock {
-        border-right: 1px solid #ddd;
-    }
-
-    .conversation-area,
-    .detail-area {
-        width: 100%;
-    }
-
-    .add {
-        left: 50%;
-        transform: translateX(-50%);
-    }
 }
 
 <?=$_ENV["LOGIKSAI_STYLE"]?>
