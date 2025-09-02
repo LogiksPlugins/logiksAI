@@ -437,7 +437,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 
 .chat-area .dropdownBox {
     position: absolute;
-    width: 280px;
+/*    width: 280px;*/
 /*    height: 230px;*/
     height: auto;
     background: #fff;
@@ -490,6 +490,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 .chat-area .dropdownBox ul li span {
     font-size: 12px;
     margin-top: 9px;
+    display: none;
 }
 
 .chat-area .dropdownBox ul li:nth-child(1) a {
@@ -512,7 +513,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     background: #3ab97a;
 }
 
-.chat-area .dropdownBox .active {
+.chat-area .dropdownBox.active {
     transform: scale(1);
     opacity: 1;
 }
@@ -748,7 +749,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-picture-o" aria-hidden="true"></i>
+                            <i class="fa fa-picture-o fa-image" aria-hidden="true"></i>
                         </a>
                         <span>Image</span>
                     </li>
