@@ -201,13 +201,15 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 }
 
 .chat-area .chat-msg-date {
-    position: absolute;
+    /*position: absolute;
     left: calc(100% + 12px);
     bottom: 0;
     font-size: 12px;
     font-weight: 600;
     color: #c0c7d2;
-    white-space: nowrap;
+    white-space: nowrap;*/
+    font-size: 12px;
+    color: #666;
 }
 
 .chat-area .chat-msg {
@@ -222,16 +224,19 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-.chat-area .chat-msg-text {
-    background-color: var(--chat-text-bg);
-/*    padding: 15px;*/
+    background: white;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    border-radius: 5px 5px 5px 0;
     padding: 15px 15px 8px 15px;
-    border-radius: 20px 20px 20px 0;
+    border-radius: 0 20px 20px 20px;
     line-height: 1.5;
     font-size: 14px;
     font-weight: 500;
+}
+
+.chat-area .chat-msg-text {
+    
 }
 
 .chat-area .chat-msg-text+ .chat-msg-text {
@@ -246,19 +251,21 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
     flex-direction: row-reverse;
 }
 
-.chat-area .owner  .chat-msg-content {
+.chat-area .owner .chat-msg-content {
     margin-left: 0;
     margin-right: 12px;
     align-items: flex-end;
+
+    background-color: #f0eac7;
+    color: #111;
+    border-radius: 20px 0 20px 20px;
 }
 
-.chat-area .owner  .chat-msg-text {
-    background-color: #0086ff;
-    color: #fff;
-    border-radius: 20px 20px 0 20px;
+.chat-area .owner .chat-msg-text {
+    color: #111;
 }
 
-.chat-area .owner  .chat-msg-date {
+.chat-area .owner .chat-msg-date {
     left: auto;
     right: calc(100% + 12px);
 }
@@ -416,7 +423,7 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 }
 
 .chat-area .chat-msg-text {
-    background-color: #ffffff;
+/*    background-color: #ffffff;*/
 }
 
 .chat-area .chat-area-group i {
@@ -424,15 +431,15 @@ if(!isset($_ENV["LOGIKSAI_TITLE"])) {
 }
 
 .chat-area .chat-msg-date {
-    color: #232323;
+    color: #999999;
 }
 
-.chat-area .owner  .chat-msg-text {
+.chat-area .owner .chat-msg-text {
     border-radius: 5px 5px 0 5px;
 }
 
 .chat-area .chat-msg-text {
-    border-radius: 5px 5px 5px 0;
+    
 }
 
 .chat-area .dropdownBox {
@@ -872,7 +879,7 @@ function recieveMessage(msgObj) {
 }
 function appendNewMessage(isOwner, msgUser, msgText, msgAvatar, timeStamp, msgID) {
     if(msgAvatar==null || msgAvatar===false) msgAvatar = "<?=loadMedia('images/user.png')?>";
-    // timeStamp
+    timeStamp = timeStamp.split(":").slice(0,2).join(":");
 
     $("#chatAreaMain").find(".chat-welcome").detach();
     $("#chatAreaMain").find(".ajaxloading").detach();
@@ -884,20 +891,20 @@ function appendNewMessage(isOwner, msgUser, msgText, msgAvatar, timeStamp, msgID
         $("#chatAreaMain").append(`<div class="chat-msg owner" data-msgid='${msgID}'>
                 <div class="chat-msg-profile">
                     <img class="chat-msg-img" src="${msgAvatar}" alt="${msgUser}" />
-                    <div class="chat-msg-date">Message sent on ${timeStamp}</div>
                 </div>
                 <div class="chat-msg-content">
                     <div class="chat-msg-text">${msgText}</div>
+                    <div class="chat-msg-date">@${timeStamp}</div>
                 </div>
             </div>`);
     } else {
         $("#chatAreaMain").append(`<div class="chat-msg server" data-msgid='${msgID}'>
                 <div class="chat-msg-profile">
                     <img class="chat-msg-img" src="${msgAvatar}" alt="${msgUser}" />
-                    <div class="chat-msg-date">Message recieved at ${timeStamp}</div>
                 </div>
                 <div class="chat-msg-content">
                     <div class="chat-msg-text">${msgText}</div>
+                    <div class="chat-msg-date">@${timeStamp}</div>
                 </div>
             </div>`);
     }
